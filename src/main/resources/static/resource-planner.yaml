@@ -1,0 +1,129 @@
+openapi: 3.0.3
+info:
+  title: Resource Planner
+  version: 1.1.0
+  description: This service collects and analyzes data from tasks in Yandex Tracker
+servers:
+  - url: /
+    description: Local Environment
+tags:
+  - name: Resource Planner V1
+paths:
+  /v1/tasks:search-underestimate:
+    post:
+      tags:
+        - Tasks
+      summary: Search underestimated tasks
+      description: Returns the found underestimated tasks from active and finished statuses
+      operationId: searchUnderestimatedTasksByParentTask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './schema/EstimatedTaskRequest.yaml#/EstimatedTaskRequest'
+        required: true
+      responses:
+        "200":
+          description: Tasks was found successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './schema/UnderestimatedTasksResponse.yaml#/UnderestimatedTasksResponse'
+        "400":
+          description: Some of the request parameters are invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "./schema/ErrorResponse.yaml#/ErrorResponse"
+        "404":
+          description: The workflow with the given ID doesn't exist.
+          content:
+            application/json:
+              schema:
+                $ref: "./schema/ErrorResponse.yaml#/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "./schema/ErrorResponse.yaml#/ErrorResponse"
+  /v1/tasks:search-overestimate:
+    post:
+      tags:
+        - Tasks
+      summary: Search overestimated tasks
+      description: Returns the found overestimated tasks from active and finished statuses
+      operationId: searchOverestimatedTasksByParentTask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './schema/EstimatedTaskRequest.yaml#/EstimatedTaskRequest'
+        required: true
+      responses:
+        "200":
+          description: Tasks was found successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './schema/OverestimatedTasksResponse.yaml#/OverestimatedTasksResponse'
+        "400":
+          description: Some of the request parameters are invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "./schema/ErrorResponse.yaml#/ErrorResponse"
+        "404":
+          description: The workflow with the given ID doesn't exist.
+          content:
+            application/json:
+              schema:
+                $ref: "./schema/ErrorResponse.yaml#/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "./schema/ErrorResponse.yaml#/ErrorResponse"
+  /v1/tasks:calculate-deadline:
+    post:
+      tags:
+        - Tasks
+      summary: Calculate deadline of the project with team capacity
+      description: Returns date and resources timeline when the project will be finished
+      operationId: calculateDeadlineByProjectIdAndTeamCapacity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './schema/CalculateDeadlineRequest.yaml#/CalculateDeadlineRequest'
+        required: true
+      responses:
+        "200":
+          description: Tasks was found successfully
+          content:
+            application/json:
+              schema:
+                $ref: './schema/CalculateDeadlineResponse.yaml#/CalculateDeadlineResponse'
+        "400":
+          description: Some of the request parameters are invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "./schema/ErrorResponse.yaml#/ErrorResponse"
+        "404":
+          description: The workflow with the given ID doesn't exist.
+          content:
+            application/json:
+              schema:
+                $ref: "./schema/ErrorResponse.yaml#/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "./schema/ErrorResponse.yaml#/ErrorResponse"

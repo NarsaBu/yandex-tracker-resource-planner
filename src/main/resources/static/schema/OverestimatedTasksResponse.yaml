@@ -1,0 +1,32 @@
+OverestimatedTasksResponse:
+  description: Information about overestimated tasks
+  required:
+    - task
+  type: object
+  properties:
+    task:
+      $ref: '#/components/schemas/TaskContent'
+
+components:
+  schemas:
+    TaskContent:
+      description: Information about overestimated task content
+      required:
+        - taskId
+        - taskName
+        - overestimatedHours
+      type: object
+      properties:
+        taskId:
+          description: Task identifier
+          type: string
+          example: "CALCSP-1102"
+        taskName:
+          description: Task name
+          type: string
+          example: "Some task name"
+        overestimatedHours:
+          description: Overestimated task value in hours
+          type: number
+          format: double
+          example: 13.6

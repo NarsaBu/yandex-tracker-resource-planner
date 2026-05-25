@@ -1,0 +1,38 @@
+CalculateDeadlineRequest:
+  description: Information about projectId and team capacity
+  required:
+    - parentTaskId
+    - roles
+  type: object
+  properties:
+    parentTaskId:
+      description: Project Id
+      type: string
+      example: "CALCSP-1100"
+    roles:
+      $ref: '#/components/schemas/Roles'
+
+components:
+  schemas:
+    Roles:
+      description: Information about team roles capacity
+      required:
+        - role
+      type: array
+      items:
+          $ref: '#/components/schemas/Role'
+    Role:
+      description: Information about team role capacity
+      required:
+        - roleName
+        - memberCount
+      type: object
+      properties:
+        roleName:
+          description: Role name
+          type: string
+          example: "BE"
+        memberCount:
+          description: Task name
+          type: integer
+          example: 3

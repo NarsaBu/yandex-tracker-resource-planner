@@ -1,0 +1,57 @@
+ErrorResponse:
+  description: Information about specific occurred error
+  required:
+    - error
+  type: object
+  properties:
+    error:
+      $ref: '#/components/schemas/ErrorContent'
+
+components:
+  schemas:
+    ErrorContent:
+      description: The error object
+      required:
+        - errorContentCode
+        - errorContentMessage
+      type: object
+      properties:
+        errorContentCode:
+          description: An error code string for the error that occurred
+          enum:
+            - InvalidRequestStructure
+            - InvalidRequestParameter
+            - EntityNotFound
+            - ResourceNotFound
+            - UnexpectedError
+            - DownstreamServiceError
+          type: string
+          example: InvalidRequestParameter
+        errorContentMessage:
+          description: Explanation of the error that occurred
+          type: string
+        errorContentDetails:
+          description: A list of details that might provide a breakdown of multiple errors encountered while processing
+            the request
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+    ErrorDetails:
+      description: An additional error object that might provide some specific details for occurred error
+      required:
+        - errorDetailsCode
+        - errorDetailsMessage
+      type: object
+      properties:
+        errorDetailsTarget:
+          description: The target of the error
+          type: string
+          example: "location"
+        errorDetailsMessage:
+          description: Explanation of the error
+          type: string
+          example: "must not be empty"
+        errorDetailsCode:
+          description: A short error code string
+          type: string
+          example: "NullValue"

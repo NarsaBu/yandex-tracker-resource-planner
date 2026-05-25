@@ -1,0 +1,10 @@
+EstimatedTaskRequest:
+  description: Information about parent task identifier
+  required:
+    - parentTaskId
+  type: object
+  properties:
+    parentTaskId:
+      type: string
+      description: Parent task identifier
+      example: "CALCSP-1100"

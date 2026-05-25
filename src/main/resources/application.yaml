@@ -1,0 +1,47 @@
+## Spring Doc configuration
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    path: /swagger-ui.html
+    url: /resource-planner.yaml
+    disable-swagger-default-url: true
+spring:
+  reactor:
+    netty:
+      connection-provider:
+        default:
+          max-connections: 50
+          pending-acquire-max-count: 100
+          pending-acquire-timeout: 10s
+      resolver:
+        prefer-native: false
+  webflux:
+    webclient:
+      max-connections: 50
+      max-in-memory-size: 10MB
+  config:
+    # settings for local development environment only
+    import: optional:file:.env[.properties];optional:file:./application-local.yaml
+  application:
+    name: @project.name@
+    version: @project.version@
+  main:
+    banner-mode: "off"
+
+server:
+  port: ${HTTP_PORT}
+  shutdown: graceful
+  ## Swagger configuration
+  forward-headers-strategy: framework
+
+logging:
+  level:
+    root: ${ROOT_LOG_LEVEL:INFO}
+
+app:
+  clients:
+    yandex-tracker:
+      base-url: ${YANDEX_TRACKER_HOST:https://api.tracker.yandex.net}
+      token: ${YANDEX_TRACKER_TOKEN}
+      x-org-id: ${YANDEX_TRACKER_X_ORG_ID:7867633}

@@ -1,0 +1,97 @@
+CalculateDeadlineResponse:
+  description: Information about overestimated tasks
+  required:
+    - projectTimeline
+    - roleEfforts
+    - anomalies
+  type: object
+  properties:
+    projectTimeline:
+      $ref: '#/components/schemas/ProjectTimeline'
+    roleEfforts:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/RoleEffort'
+    anomalies:
+      $ref: '#/components/schemas/Anomalies'
+
+components:
+  schemas:
+    ProjectTimeline:
+      description: Information about time when project will be completed
+      required:
+        - completionDate
+        - workingDays
+        - calendarDays
+      type: object
+      properties:
+        completionDate:
+          description: Date when the project will be completed
+          type: string
+          example: "2026-05-20"
+        workingDays:
+          description: Only working days to complete project
+          type: integer
+          example: 8
+        calendarDays:
+          description: Days to complete project with holidays
+          type: integer
+          example: 10
+    RoleEffort:
+      description: Effort estimation for a specific role
+      required:
+        - memberCount
+        - totalHours
+        - effortInPersonDays
+        - daysWithHolidays
+        - estimatedDurationDays
+      type: object
+      properties:
+        memberCount:
+          description: Number of team members assigned to this role
+          type: integer
+          example: 2
+        totalHours:
+          description: Total estimated hours for the role
+          type: number
+          format: double
+          example: 16.5
+        effortInPersonDays:
+          description: Effort converted to person-days
+          type: integer
+          example: 2
+        daysWithHolidays:
+          description: Duration in calendar days including holidays
+          type: integer
+          example: 3
+        estimatedDurationDays:
+          description: Estimated working days to complete tasks for this role
+          type: integer
+          example: 2
+    Anomalies:
+      description: Anomaly tasks that determined while calculating deadline
+      required:
+        - anomaly
+      type: array
+      items:
+        $ref: '#/components/schemas/Anomaly'
+    Anomaly:
+      description: Information about time when project will be completed
+      required:
+        - taskId
+        - taskName
+        - anomalyReason
+      type: object
+      properties:
+        taskId:
+          description: Task identifier
+          type: string
+          example: "CALCSP-1101"
+        taskName:
+          description: Task title
+          type: string
+          example: "Some task name"
+        anomalyReason:
+          description: the reason why the task was not taken into account and pushed into anomalies
+          type: string
+          example: "The task is not estimated"
