@@ -24,7 +24,9 @@
    YANDEX_TRACKER_HOST=https://api.tracker.yandex.net/
    YANDEX_TRACKER_TOKEN=*сгеренируй свой токен. Инструкция ниже*
    YANDEX_TRACKER_X_ORG_ID=7867633
-5. Запустить приложение используя следующий скрипт: ```java -jar resource-planner-0.0.1.jar '--spring.config.import=optional:file:./external.properties'```
+5. Запустить приложение используя следующий скрипт:
+   MacOS/Linux ```java -jar resource-planner-0.0.1.jar '--spring.config.import=optional:file:./external.properties'```
+   Windows: ```java -jar resource-planner-0.0.1.jar "--spring.config.import=optional:file:./external.properties"```
 
 Путь до swagger: http://localhost:31660/swagger-ui/index.html
 
